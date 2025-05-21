@@ -1,0 +1,17 @@
+[Unit]
+Description=Flask API for controlling services
+After=network.target
+
+[Service]
+User=www-data
+WorkingDirectory=/home/user/SystemdAPI/service-control
+ExecStart=/usr/bin/python3 /home/user/SystemdAPI/service-control/app.py
+Environment=FLASK_APP=/home/user/SystemdAPI/service-control/app.py
+Environment=FLASK_ENV=production
+Restart=always
+RestartSec=5
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+

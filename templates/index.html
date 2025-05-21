@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Service Control</title>
+</head>
+<body>
+  <h1>Manage Service</h1>
+  <button onclick="sendAction('start')">Start</button>
+  <button onclick="sendAction('stop')">Stop</button>
+  <button onclick="sendAction('restart')">Restart</button>
+  <button onclick="sendAction('status')">Status</button>
+  <pre id="output"></pre>
+
+  <script>
+    async function sendAction(action) {
+      try {
+        const response = await fetch('http://localhost/api/' + action, {
+          method: 'POST'
+        });
+        const data = await response.json();
+        document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('output').innerText = "Error: " + error.message;
+      }
+    }
+  </script>
+</body>
+</html>
